@@ -1,5 +1,6 @@
 package com.crossover.trial.weather.endpoints;
 
+import static com.crossover.trial.weather.endpoints.Paths.*;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -14,7 +15,7 @@ import com.crossover.trial.weather.models.Atmosphereinfo;
  *
  * @author code test adminsitrator
  */
-@Path("/query")
+@Path(QUERY)
 public interface WeatherQueryEndpoint {
 
     /**
@@ -35,7 +36,7 @@ public interface WeatherQueryEndpoint {
      * @return a JSON formatted dict with health information.
      */
     @GET
-    @Path("/ping")
+    @Path(PING)
     @Produces(MediaType.APPLICATION_JSON)
     @Deprecated
     String ping();
@@ -50,8 +51,8 @@ public interface WeatherQueryEndpoint {
      * airports in the given radius
      */
     @GET
-    @Path("/weather/{iata}/{radius}")
+    @Path(WEATHER+"/{"+IATA+"}/{"+RADIUS+"}")
     @Produces(MediaType.APPLICATION_JSON)
-    Response weather(@PathParam("iata") String iata, @PathParam("radius") String radiusString);
+    Response weather(@PathParam(IATA) String iata, @PathParam(RADIUS) String radiusString);
 
 }

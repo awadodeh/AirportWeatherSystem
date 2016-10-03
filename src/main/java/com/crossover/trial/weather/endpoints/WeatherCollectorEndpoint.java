@@ -1,5 +1,6 @@
 package com.crossover.trial.weather.endpoints;
 
+import static com.crossover.trial.weather.endpoints.Paths.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -12,7 +13,7 @@ import com.crossover.trial.weather.models.DataPointType;
  *
  * @author code test administartor
  */
-@Path("/collect")
+@Path(COLLECT)
 public interface WeatherCollectorEndpoint {
 
     /**
@@ -21,7 +22,7 @@ public interface WeatherCollectorEndpoint {
      * @return 1 if the endpoint is alive functioning, 0 otherwise
      */
     @GET
-    @Path("/ping")
+    @Path(PING)
     Response ping();
 
     /**
@@ -34,9 +35,9 @@ public interface WeatherCollectorEndpoint {
      * @return HTTP Response code
      */
     @POST
-    @Path("/weather/{iata}/{pointType}")
-    Response updateWeather(@PathParam("iata") String iataCode,
-                           @PathParam("pointType") String pointType,
+    @Path(WEATHER+"/{"+IATA+"}/{"+POINT_TYPE+"}")
+    Response updateWeather(@PathParam(IATA) String iataCode,
+                           @PathParam(POINT_TYPE) String pointType,
                            String datapointJson);
 
     /**
@@ -45,7 +46,7 @@ public interface WeatherCollectorEndpoint {
      * @return HTTP Response code and a json formatted list of IATA codes
      */
     @GET
-    @Path("/airports")
+    @Path(AIRPORTS)
     @Produces(MediaType.APPLICATION_JSON)
     Response getAirports();
 
@@ -56,9 +57,9 @@ public interface WeatherCollectorEndpoint {
      * @return an HTTP Response with a json representation of {@link Airport}
      */
     @GET
-    @Path("/airport/{iata}")
+    @Path(AIRPORT+"/{"+IATA+"}")
     @Produces(MediaType.APPLICATION_JSON)
-    Response getAirport(@PathParam("iata") String iata);
+    Response getAirport(@PathParam(IATA) String iata);
 
     /**
      * Add a new airport to the known airport list.
@@ -70,10 +71,10 @@ public interface WeatherCollectorEndpoint {
      */
 
     @POST
-    @Path("/airport/{iata}/{lat}/{long}")
-    Response addAirport(@PathParam("iata") String iata,
-                        @PathParam("lat") String latString,
-                        @PathParam("long") String longString);
+    @Path(AIRPORT+"/{"+IATA+"}/{"+LAT+"}/{"+LONG+"}")
+    Response addAirport(@PathParam(IATA) String iata,
+                        @PathParam(LAT) String latString,
+                        @PathParam(LONG) String longString);
 
     /**
      * Remove an airport from the known airport list
@@ -82,8 +83,8 @@ public interface WeatherCollectorEndpoint {
      * @return HTTP Response code for the delete operation
      */
     @DELETE
-    @Path("/airport/{iata}")
-    Response deleteAirport(@PathParam("iata") String iata);
+    @Path(AIRPORT+"/{"+IATA+"}")
+    Response deleteAirport(@PathParam(IATA) String iata);
 
     /**
      * Shutdown airport weather collection system
@@ -92,7 +93,7 @@ public interface WeatherCollectorEndpoint {
      * @deprecated it's not possible to shutdown the service
      */
     @GET
-    @Path("/exit")
+    @Path(EXIT)
     @Deprecated
     Response exit();
 
