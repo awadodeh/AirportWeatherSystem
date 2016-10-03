@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.crossover.trial.weather.endpoints;
+package com.crossover.trial.weather.utils;
 
 /**
  *
@@ -28,7 +28,6 @@ public interface Paths {
     static final String IATA="iata";
     static final String LAT="lat";
     static final String LONG="long";
-//    static final String IATA="iata";
     
     
 }

@@ -1,6 +1,6 @@
 package com.crossover.trial.weather.endpoints;
 
-import static com.crossover.trial.weather.endpoints.Paths.*;
+import static com.crossover.trial.weather.utils.Paths.*;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;

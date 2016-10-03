@@ -7,6 +7,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 
 import com.crossover.trial.weather.models.DataPoint;
+import static com.crossover.trial.weather.utils.Paths.*;
 
 /**
  * A reference implementation for the weather client. Consumers of the REST API can look at WeatherClient
@@ -29,8 +30,8 @@ public class WeatherClient {
 
     public WeatherClient() {
         Client client = ClientBuilder.newClient();
-        query = client.target(BASE_URI + "/query");
-        collect = client.target(BASE_URI + "/collect");
+        query = client.target(BASE_URI + QUERY);
+        collect = client.target(BASE_URI + COLLECT);
     }
 
     public static void main(String[] args) {
@@ -51,19 +52,19 @@ public class WeatherClient {
     }
 
     public void pingCollect() {
-        WebTarget path = collect.path("/ping");
+        WebTarget path = collect.path(PING);
         Response response = path.request().get();
         System.out.print("collect.ping: " + response.readEntity(String.class) + "\n");
     }
 
     public void query(String iata) {
-        WebTarget path = query.path("/weather/" + iata + "/0");
+        WebTarget path = query.path(WEATHER+"/" + iata + "/0");
         Response response = path.request().get();
         System.out.println("query." + iata + ".0: " + response.readEntity(String.class));
     }
 
     public void pingQuery() {
-        WebTarget path = query.path("/ping");
+        WebTarget path = query.path(PING);
         Response response = path.request().get();
         System.out.println("query.ping: " + response.readEntity(String.class));
     }
@@ -76,7 +77,7 @@ public class WeatherClient {
 
     public void exit() {
         try {
-            collect.path("/exit").request().get();
+            collect.path(EXIT).request().get();
         } catch (Throwable t) {
             // swallow
         }

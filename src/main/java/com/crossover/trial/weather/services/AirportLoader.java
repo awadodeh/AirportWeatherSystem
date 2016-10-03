@@ -1,5 +1,8 @@
 package com.crossover.trial.weather.services;
 
+import com.crossover.trial.weather.utils.Paths;
+import static com.crossover.trial.weather.utils.Paths.AIRPORT;
+import static com.crossover.trial.weather.utils.Paths.COLLECT;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
@@ -22,7 +25,7 @@ public class AirportLoader {
 
     public AirportLoader(String weatherServerURL) {
         Client client = ClientBuilder.newClient();
-        collect = client.target(weatherServerURL + "/collect");
+        collect = client.target(weatherServerURL + COLLECT);
     }
 
     public static void main(String args[]) throws IOException {
@@ -43,7 +46,7 @@ public class AirportLoader {
     }
 
     public void upload(InputStream airportDataStream) throws IOException {
-        Response response = collect.path("/ping").request().get();
+        Response response = collect.path(Paths.PING).request().get();
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             System.out.println("Service AWS at " + collect.getUri() + "is unavailable");
             return;
@@ -56,7 +59,7 @@ public class AirportLoader {
             String iataCode = record.get(4);
             String latitude = record.get(6);
             String longitude = record.get(7);
-            response = collect.path("/airport/" + iataCode + "/" + latitude + "/" + longitude).
+            response = collect.path(AIRPORT+"/" + iataCode + "/" + latitude + "/" + longitude).
                     request().post(Entity.entity("", "application/json"));
 
             System.out.printf("%1$-8s %2$-20s %3$-20s %4$-8s \n", iataCode, latitude, longitude,
