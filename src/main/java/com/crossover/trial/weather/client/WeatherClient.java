@@ -16,7 +16,7 @@ import static com.crossover.trial.weather.utils.Paths.*;
  */
 public class WeatherClient {
 
-    private static final String BASE_URI = "http://localhost:9807";
+    private static final String BASE_URI = "http://localhost:9576";
 
     /**
      * end point for read queries
